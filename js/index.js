@@ -62,21 +62,21 @@ const showPhoneDetails = (phone) =>{
 
     const showDetailContainer = document.getElementById('show-detail-container');
     showDetailContainer.innerHTML = `
-    <img class="mb-6 mt-4 " src="${phone.image}"alt="" />
-    <p><span>Brand:
+    <img class="mb-6 mt-4" src="${phone.image}"alt="" />
+    <p><span class="font-bold">Brand:
     :</span>${phone?.brand
     }</p>
-    <p><span>storage:</span>${phone?.mainFeatures?.storage}</p>
-    <p><span>chipSet
+    <p><span class="font-bold ">storage:</span>${phone?.mainFeatures?.storage}</p>
+    <p><span class="font-bold ">ChipSet
     :</span>${phone?.mainFeatures?.chipSet
     }</p>
-    <p><span>releaseDate
+    <p><span class="font-bold ">releaseDate
     :</span>${phone?.mainFeatures?.releaseDate
     }</p>
-    <p><span>displaySize
+    <p><span class="font-bold ">displaySize
     :</span>${phone?.mainFeatures?.displaySize
     }</p>
-    <p><span>releaseDate
+    <p><span class="font-bold ">releaseDate
     :</span>${phone?.mainFeatures?.releaseDate
     }</p>
     
