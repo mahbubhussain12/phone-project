@@ -1,4 +1,4 @@
-const loadPhone =  async(searchText, isShowAll) =>{
+const loadPhone =  async(searchText='13', isShowAll) =>{
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`)
     const data = await res.json();
     const phones =(data.data)
@@ -8,7 +8,7 @@ const loadPhone =  async(searchText, isShowAll) =>{
 
 
          const displayPhones = (phones, isShowAll) => {
-         console.log(phones)
+        //  console.log(phones)
 
         const phoneContainar = document.getElementById('phone-containar');
         phoneContainar.textContent = '';
@@ -20,23 +20,21 @@ const loadPhone =  async(searchText, isShowAll) =>{
         else{
             showAllContainar.classList.add('hidden')
         }
-        console.log('is show all', isShowAll)
+        // console.log('is show all', isShowAll)
         if(!isShowAll){
             phones = phones.slice(0,12);
         }
 
         phones.forEach(phone =>{
-        console.log(phone);
+        // console.log(phone);
 
         const phoneCard = document.createElement('div');
         phoneCard.classList = `card bg-gray-100 p-4 shadow-xl`
-        phoneCard.innerHTML = ` <figure><img src="${phone.image}" alt="Shoes" /></figure>
+        phoneCard.innerHTML = `<figure><img src="${phone.image}" alt="Shoes" /></figure>
         <div class="card-body">
         <h2 class="card-title">${phone.phone_name}</h2>
-        <h2 class="card-title">${phone.slug
-        }</h2>
-        <div class="card-actions justify-end">
-        <button class="btn btn-primary">Buy Now</button>
+        <div class="card-actions justify-center">
+        <button onclick="handleShowDetail('${phone.slug}');" class="btn btn-primary">Show Details</button>
         </div>
         </div>
         `;
@@ -44,6 +42,47 @@ const loadPhone =  async(searchText, isShowAll) =>{
         phoneContainar.appendChild(phoneCard);
     });
     toggleLoadingSpinner(false)
+
+}
+// show
+const handleShowDetail = async (id)=>{
+    // console.log('click show details', id)
+    // load data 
+    const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
+    const data = await res.json();
+    const phone = data.data;
+    showPhoneDetails(phone)
+
+
+}
+const showPhoneDetails = (phone) =>{
+    console.log(phone);
+    const phoneName = document.getElementById('phone-name');
+    phoneName.innerText = phone.name;
+
+    const showDetailContainer = document.getElementById('show-detail-container');
+    showDetailContainer.innerHTML = `
+    <img class="mb-6 mt-4 " src="${phone.image}"alt="" />
+    <p><span>Brand:
+    :</span>${phone?.brand
+    }</p>
+    <p><span>storage:</span>${phone?.mainFeatures?.storage}</p>
+    <p><span>chipSet
+    :</span>${phone?.mainFeatures?.chipSet
+    }</p>
+    <p><span>releaseDate
+    :</span>${phone?.mainFeatures?.releaseDate
+    }</p>
+    <p><span>displaySize
+    :</span>${phone?.mainFeatures?.displaySize
+    }</p>
+    <p><span>releaseDate
+    :</span>${phone?.mainFeatures?.releaseDate
+    }</p>
+    
+    `
+    // show the modal 
+    show_details_modal.showModal() 
 
 }
 
@@ -78,4 +117,4 @@ const handleShowAll = () =>{
     handelSearch(true);
 
 }
-        //    loadPhone();
+ loadPhone();
